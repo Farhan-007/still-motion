@@ -1,28 +1,25 @@
 import React from 'react'
-import ReactCardSlider from 'react-card-slider-component';
-// a slide object contains the image link, title and function/click event for when a user clicks on a card
 
+function Category() {
+    return (
+        <>
+            <section class="bg-white dark:bg-gray-900">
+                <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-6">
+                    <div class="mx-auto mb-8 max-w-screen-sm lg:mb-16">
+                        <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Unforgettable Moments Through Photography and Cinematography </h2>
+                    </div>
+                    <div className="flex items-center gap-5 overflow-y-scroll no-scrollbar">
+                        <span className=" block h-[70vh] aspect-[2/3] bg-black"></span>
+                        <span className=" block h-[70vh] aspect-[2/3] bg-black"></span>
+                        <span className=" block h-[70vh] aspect-[2/3] bg-black"></span>
+                        <span className=" block h-[70vh] aspect-[2/3] bg-black"></span>
+                        <span className=" block h-[70vh] aspect-[2/3] bg-black"></span>
+                        
+                    </div>
+                </div>
+            </section>
+        </>
+    )
+}
 
-// function Category() {
-//     const slides = [
-//         { image: "https://picsum.photos/200/300", title: "This is a title", description: "This is a description", clickEvent: {sliderClick} },
-//         { image: "https://picsum.photos/600/500", title: "This is a second title", description: "This is a second description", clickEvent: {sliderClick} },
-//         { image: "https://picsum.photos/700/600", title: "This is a third title", description: "This is a third description", clickEvent: {sliderClick} },
-//         { image: "https://picsum.photos/500/400", title: "This is a fourth title", description: "This is a fourth description", clickEvent: {sliderClick} },
-//         { image: "https://picsum.photos/200/300", title: "This is a fifth title", description: "This is a fifth description", clickEvent: {sliderClick} },
-//         { image: "https://picsum.photos/800/700", title: "This is a sixth title", description: "This is a sixth description", clickEvent: {sliderClick} },
-//         { image: "https://picsum.photos/300/400", title: "This is a seventh title", description: "This is a seventh description", clickEvent: {sliderClick} },
-//     ]
-
-//     return (
-//         <>
-//             <div className=" flex items-center justify-center">
-
-//                 <ReactCardSlider slides={slides} />
-
-//             </div>
-//         </>
-//     )
-// }
-
-// export default Category
+export default Category

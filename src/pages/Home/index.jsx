@@ -10,7 +10,7 @@ function Home() {
         <>
             <Hero />
             <Feature />
-            {/* <Category /> */}
+            <Category />
             <Team />
             <Contact />
         </>

@@ -11,6 +11,9 @@ function Feature() {
                     showThumbs={false}
                     swipeable={true}
                     infiniteLoop={true}
+                    autoPlay={true}
+                    autoFocus={true}
+                    interval='1000'
                     className='flex '>
                     <div>
                         <img class="object-cover object-center rounded" alt="hero" src="https://dummyimage.com/1200x600" />
