@@ -1,6 +1,10 @@
 import React from 'react'
+import { myTeam } from '../../myData'
 
 function Team() {
+
+    console.log(myTeam)
+
     return (
         <>
             <section class="bg-white dark:bg-gray-900">
