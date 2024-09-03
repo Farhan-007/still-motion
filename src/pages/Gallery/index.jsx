@@ -1,61 +1,159 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import Modal from './modal';
+import { smallImages } from './smallImg';
+import Buttons from './buttons';
+
+console.log(`${window.innerWidth} x ${window.innerHeight}`)
+
+// if (window.innerWidth > 720) {
+
+// }
+
+function splitArrayIntoFour(arr) {
+    // Initialize four empty arrays
+    const result = [[], [], [], [], [], []];
+    // Loop through the original array
+    for (let i = 0; i < arr.length; i++) {
+        // Use modulo operation to distribute elements across the four arrays
+        result[i % 6].push(arr[i]);
+    }
+    return result;
+}
+
 
 function GalleryPage() {
+
+    // galleryData
+    let filters = ["All", "ethnic", "fashion", "catalogue", "portrait", "pre-wedding", "wedding"]
+    const [selectedFilter, setSelectedFilter] = useState(filters[0])
+    const [data, setData] = useState(smallImages);
+
+    let [arr0, arr1, arr2, arr3, arr4, arr5] = splitArrayIntoFour(data);
+    let arrSize = [arr0, arr1, arr2, arr3, arr4, arr5];
+    console.log(arrSize)
+
+
+    // buttons
+    function activeButton(value) {
+        setSelectedFilter(value)
+    }
+
+    // Modal
+    const [modal, setModal] = useState(false);
+    const [modalImg, setModalImg] = useState('');
+
+    useEffect(() => {
+        filterItems();
+    }, [selectedFilter]);
+
+    const filterItems = () => {
+        if (selectedFilter === filters[0]) {
+            setData(smallImages)
+        }
+
+        else if (selectedFilter.length > 0) {
+            let tempItems = smallImages.filter(image => image.title === selectedFilter)
+            setData(tempItems)
+            console.log(tempItems)
+        }
+    }
+
+
     return (
         <>
+            <Modal
+                openModal={modal}
+                closeModal={() => setModal(false)}
+            >
+                <img loading="lazy" class="h-auto w-auto max-w-full max-h-[90dvh] rounded-xl " src={modalImg} alt="" />
+            </Modal>
 
-            <div class="flex items-center justify-center py-4 md:py-8 flex-wrap">
-                <button type="button" class="text-blue-700 hover:text-white border border-blue-600 bg-white hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:bg-gray-900 dark:focus:ring-blue-800">All categories</button>
-                <button type="button" class="text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 dark:text-white dark:focus:ring-gray-800">Shoes</button>
-                <button type="button" class="text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 dark:text-white dark:focus:ring-gray-800">Bags</button>
-                <button type="button" class="text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 dark:text-white dark:focus:ring-gray-800">Electronics</button>
-                <button type="button" class="text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 dark:text-white dark:focus:ring-gray-800">Gaming</button>
+            <div className="gallery-buttons flex items-center justify-start md:justify-center py-4 px-4 overflow-x-scroll">
+                {filters.map((item) => (
+                    <Buttons
+                        onChange={activeButton}
+                        active={selectedFilter}
+                        disabled={selectedFilter}
+                        id={item}
+                        key={item}
+                        title={item}
+                    />
+                ))}
             </div>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="grid gap-4">
-                    <div>
-                        <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg" alt="" />
+
+            {/* <div className="gallery">
+                {data.map((item) => (
+                    <div key={item.id} onClick={() => { setModal(true); setModalImg(`https://ik.imagekit.io/Farhan007/StillMotion-ImageServer/(${item.id}).jpg`) }}>
+                        <img loading="lazy" class="h-auto max-w-full rounded-lg" src={`https://ik.imagekit.io/Farhan007/StillMotion-ImageServer/tr:w-300/(${item.id}).jpg`} alt={`image-${item.title}${item.id}`} />
                     </div>
-                    <div>
-                        <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-1.jpg" alt="" />
-                    </div>
-                    <div>
-                        <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-2.jpg" alt="" />
-                    </div>
+                ))}
+            </div> */}
+
+
+            <div class="gallery grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 p-4">
+
+                {/* {
+                    arrSize.map((arr, idx) => {
+                        <div key={idx} class="flex flex-col gap-4">
+                            {
+                                arr.map((item) => {
+                                    <div key={item.id} onClick={() => { setModal(true); setModalImg(`https://ik.imagekit.io/Farhan007/StillMotion-ImageServer/(${item.id}).jpg`); }}>
+                                        <img loading="lazy" class="h-auto max-w-full rounded-lg" src={`https://ik.imagekit.io/Farhan007/StillMotion-ImageServer/tr:w-300/(${item.id}).jpg`} alt={`image-${item.title}${item.id}`} />
+                                    </div>
+                                })
+                            }
+                        </div>
+                    })
+                } */}
+
+                <div class="flex flex-col gap-4">
+                    {arr0.map((item) => (
+                        <div key={item.id} onClick={() => { setModal(true); setModalImg(`https://ik.imagekit.io/Farhan007/StillMotion-ImageServer/(${item.id}).jpg`); }}>
+                            <img loading="lazy" class="h-auto max-w-full rounded-lg" src={`https://ik.imagekit.io/Farhan007/StillMotion-ImageServer/tr:w-300/(${item.id}).jpg`} alt={`image-${item.title}${item.id}`} />
+                        </div>
+                    ))}
                 </div>
-                <div class="grid gap-4">
-                    <div>
-                        <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg" alt="" />
-                    </div>
-                    <div>
-                        <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-4.jpg" alt="" />
-                    </div>
-                    <div>
-                        <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-5.jpg" alt="" />
-                    </div>
+
+                <div class="flex flex-col gap-4">
+                    {arr1.map((item) => (
+                        <div key={item.id} onClick={() => { setModal(true); setModalImg(`https://ik.imagekit.io/Farhan007/StillMotion-ImageServer/(${item.id}).jpg`) }}>
+                            <img loading="lazy" class="h-auto max-w-full rounded-lg" src={`https://ik.imagekit.io/Farhan007/StillMotion-ImageServer/tr:w-300/(${item.id}).jpg`} alt={`image-${item.title}${item.id}`} />
+                        </div>
+                    ))}
                 </div>
-                <div class="grid gap-4">
-                    <div>
-                        <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-6.jpg" alt="" />
-                    </div>
-                    <div>
-                        <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-7.jpg" alt="" />
-                    </div>
-                    <div>
-                        <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-8.jpg" alt="" />
-                    </div>
+
+                <div class="flex flex-col gap-4">
+                    {arr2.map((item) => (
+                        <div key={item.id} onClick={() => { setModal(true); setModalImg(`https://ik.imagekit.io/Farhan007/StillMotion-ImageServer/(${item.id}).jpg`) }}>
+                            <img loading="lazy" class="h-auto max-w-full rounded-lg" src={`https://ik.imagekit.io/Farhan007/StillMotion-ImageServer/tr:w-300/(${item.id}).jpg`} alt={`image-${item.title}${item.id}`} />
+                        </div>
+                    ))}
                 </div>
-                <div class="grid gap-4">
-                    <div>
-                        <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-9.jpg" alt="" />
-                    </div>
-                    <div>
-                        <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-10.jpg" alt="" />
-                    </div>
-                    <div>
-                        <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-11.jpg" alt="" />
-                    </div>
+
+                <div class="flex flex-col gap-4">
+                    {arr3.map((item) => (
+                        <div key={item.id} onClick={() => { setModal(true); setModalImg(`https://ik.imagekit.io/Farhan007/StillMotion-ImageServer/(${item.id}).jpg`) }}>
+                            <img loading="lazy" class="h-auto max-w-full rounded-lg" src={`https://ik.imagekit.io/Farhan007/StillMotion-ImageServer/tr:w-300/(${item.id}).jpg`} alt={`image-${item.title}${item.id}`} />
+                        </div>
+                    ))}
                 </div>
+
+                <div class="flex flex-col gap-4">
+                    {arr4.map((item) => (
+                        <div key={item.id} onClick={() => { setModal(true); setModalImg(`https://ik.imagekit.io/Farhan007/StillMotion-ImageServer/(${item.id}).jpg`) }}>
+                            <img loading="lazy" class="h-auto max-w-full rounded-lg" src={`https://ik.imagekit.io/Farhan007/StillMotion-ImageServer/tr:w-300/(${item.id}).jpg`} alt={`image-${item.title}${item.id}`} />
+                        </div>
+                    ))}
+                </div>
+
+                <div class="flex flex-col gap-4">
+                    {arr5.map((item) => (
+                        <div key={item.id} onClick={() => { setModal(true); setModalImg(`https://ik.imagekit.io/Farhan007/StillMotion-ImageServer/(${item.id}).jpg`) }}>
+                            <img loading="lazy" class="h-auto max-w-full rounded-lg" src={`https://ik.imagekit.io/Farhan007/StillMotion-ImageServer/tr:w-300/(${item.id}).jpg`} alt={`image-${item.title}${item.id}`} />
+                        </div>
+                    ))}
+                </div>
+
             </div>
 
         </>

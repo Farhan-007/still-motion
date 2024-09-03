@@ -1,16 +1,15 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import { myTeam } from '../myData'
 
 function Navbar() {
 
     return (
         <>
-            <nav class=" w-full">
-                <div class="fixed top-0 w-[90%] flex flex-wrap items-center justify-between p-4 py-2">
+            <nav class="navbar w-full sticky top-[0] ">
+                <div class=" flex flex-wrap items-center justify-between p-4 py-4 rounded-2xl bg-[#fafafa2a]">
                     <a href="https://flowbite.com/" class="flex items-center space-x-3 rtl:space-x-reverse">
                         {/* <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Flowbite Logo" /> */}
-                        <span class="self-center md:text-2xl text-xl font-bold whitespace-nowrap text-white">SMP</span>
+                        <span class="self-center md:text-2xl text-xl font-bold whitespace-nowrap text-black">SMP</span>
                     </a>
                     <button data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
                         <span class="sr-only">Open main menu</span>

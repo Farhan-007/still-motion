@@ -3,8 +3,8 @@ import React from 'react'
 function Hero() {
     return (
         <>
-            <section className="hero-bg-image relative p-[10rem] px-5 h-full w-full ">
-                <div className=" flex flex-col z-20">
+            <section className="hero-bg-image p-[10rem] px-5 h-full w-full ">
+                <div className=" flex flex-col">
                     <h1 class="max-w-2xl mb-4 text-4xl font-bold tracking-tight leading-none md:text-5xl xl:text-6xl text-white">Capturing Moments That Last a Lifetime</h1>
                     <p class="max-w-2xl mb-6  text-gray-600 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">At stillmotionpictures, we specialize in creating visually stunning photographs and films that tell your unique story. Our team of exceptional photographers and cinematographers are passionate about capturing the moments that matter most to you.</p>
                     <div class="flex items-center">
