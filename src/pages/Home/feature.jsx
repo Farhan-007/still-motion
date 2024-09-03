@@ -18,10 +18,10 @@ function Feature() {
                     className=''>
 
                     {
-                        featureImages.map(I => {
+                        featureImages.map((item, idx) => {
                             return <>
-                                <div key={I.id} className=" h-[600px] ">
-                                    <img class="object-cover bg-center rounded" alt="hero" src={I.src} />
+                                <div key={idx} className=" h-[600px] ">
+                                    <img class="object-cover bg-center rounded" alt="hero" src={item.src} />
                                 </div>
                             </>
                         })

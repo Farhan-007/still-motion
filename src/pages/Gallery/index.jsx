@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import Modal from './modal';
 import { smallImages } from './smallImg';
 import Buttons from './buttons';
@@ -24,8 +24,8 @@ function splitArrayIntoFour(arr) {
 function GalleryPage() {
 
     // galleryData
-    let filters = ["All", "ethnic", "fashion", "catalogue", "portrait", "pre-wedding", "wedding"]
-    const [selectedFilter, setSelectedFilter] = useState(filters[0])
+    const allFilters = ["All", "ethnic", "fashion", "catalogue", "portrait", "pre-wedding", "wedding"]
+    const [selectedFilter, setSelectedFilter] = useState(allFilters[0])
     const [data, setData] = useState(smallImages);
 
     let [arr0, arr1, arr2, arr3, arr4, arr5] = splitArrayIntoFour(data);
@@ -44,19 +44,21 @@ function GalleryPage() {
 
     useEffect(() => {
         filterItems();
-    }, [selectedFilter]);
+    }, [selectedFilter ,filterItems]);
 
-    const filterItems = () => {
-        if (selectedFilter === filters[0]) {
-            setData(smallImages)
-        }
-
-        else if (selectedFilter.length > 0) {
-            let tempItems = smallImages.filter(image => image.title === selectedFilter)
-            setData(tempItems)
-            console.log(tempItems)
+    function filterItems() {
+        if (selectedFilter.length > 0) {
+            if (selectedFilter === allFilters[0]) {
+                setData(smallImages)
+            }
+            else {
+                let tempItems = smallImages.filter(image => image.title === selectedFilter)
+                setData(tempItems)
+                console.log(tempItems)
+            }
         }
     }
+
 
 
     return (
@@ -69,7 +71,7 @@ function GalleryPage() {
             </Modal>
 
             <div className="gallery-buttons flex items-center justify-start md:justify-center py-4 px-4 overflow-x-scroll">
-                {filters.map((item) => (
+                {allFilters.map((item) => (
                     <Buttons
                         onChange={activeButton}
                         active={selectedFilter}
