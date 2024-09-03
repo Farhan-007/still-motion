@@ -1,7 +1,7 @@
 export const featureImages = [
     {
         id: 1,
-        src: "/assets/images/5_6267166783120083617.jpg"
+        src: "   /assets/images/5_6267166783120083617.jpg"
     },
     {
         id: 2,
